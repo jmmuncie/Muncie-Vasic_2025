@@ -1,5 +1,5 @@
-# Muncie-Vasic_bioRxiv_2024
-Code associated with Muncie-Vasic et al. bioRxiv 2024 manuscript (https://doi.org/10.1101/2024.11.01.621613)
+# Muncie-Vasic_2025
+Code associated with Muncie-Vasic et al. 2025 manuscript
 
 Full documentation and tutorials for each of the main software packages used can be found from their developers:
 * Seurat: https://satijalab.org/seurat/
