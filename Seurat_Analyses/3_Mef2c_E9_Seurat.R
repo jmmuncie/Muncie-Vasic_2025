@@ -485,6 +485,25 @@ DP_E9_subset <- DotPlot(mef2c_v13_E9_subset, features = features4) + RotatedAxis
 setwd("~/Desktop/Mef2c_v13_Seurat_scTrans_working/Seurat_Outs/E9")
 ggsave('DotPlot_mef2c_E9_subset.pdf', plot = DP_E9_subset, device = 'pdf', width = 15, height = 6, dpi = 300)
 
+#Determine proportion of cell types for WT and Mef2c KO cells
+#First, create pooled cell type labels
+Idents(mef2c_v13_E9_subset) <- "cell_type_subset"
+new.cluster.ids <- c("SHF", "CMs-A", "CMs-V", "VP", "CMs-AVC",
+                     "SHF", "CMs-OFT", "PhM", "CMs-A", "Pe",
+                     "VP", "C11"
+)
+names(new.cluster.ids) <- levels(mef2c_v13_E9_subset$cell_type_subset)
+mef2c_v13_E9_subset <- RenameIdents(mef2c_v13_E9_subset, new.cluster.ids)
+mef2c_v13_E9_subset <- AddMetaData(mef2c_v13_E9_subset, mef2c_v13_E9_subset@active.ident, "cell_type_subset_pooled")
+#Next, create pooled cell type + genotype labels
+newlabel <- paste0(mef2c_v13_E9_subset$cell_type_subset_pooled,"_", mef2c_v13_E9_subset$Genotype) 
+mef2c_v13_E9_subset <- AddMetaData(mef2c_v13_E9_subset, newlabel, "cell_type_pool_x_genotype")
+#Finally, examine cell numbers
+#Total per genotype
+table(mef2c_v13_E9_subset$Genotype)
+#For each cell type
+table(mef2c_v13_E9_subset$cell_type_pool_x_genotype)
+
 
 ###----------Subset - DEG Testing ------------------------------------------
 
