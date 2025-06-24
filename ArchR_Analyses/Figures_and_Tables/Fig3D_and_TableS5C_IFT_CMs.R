@@ -221,8 +221,8 @@ colnames(DARs_P2G_with_DEG_info) <- col_names
 #Remove all X chromosome data (due to unbalanced sex of WT/KO embryos)
 DARs_P2G_with_DEG_info <- DARs_P2G_with_DEG_info[DARs_P2G_with_DEG_info$chr != "chrX", ]
 
-#Save dataframe to a CSV file - Table S4C
-write.csv(DARs_P2G_with_DEG_info, "~/Desktop/Working_Directory/TableS4C_E85_IFT-CMs_DARs_P2G_with_DEG_info.csv", row.names = FALSE)
+#Save dataframe to a CSV file - Table S5C
+write.csv(DARs_P2G_with_DEG_info, "~/Desktop/Working_Directory/TableS5C_E85_IFT-CMs_DARs_P2G_with_DEG_info.csv", row.names = FALSE)
 
 
 ###------------------Create Plot-------------------------------------
