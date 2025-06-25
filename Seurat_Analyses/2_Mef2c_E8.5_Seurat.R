@@ -485,6 +485,19 @@ DP_E85_sub <- DotPlot(mef2c_v13_E85_v3_subset, features = features2) + RotatedAx
 setwd("~/Desktop/Mef2c_v13_Seurat_scTrans_working/Seurat_Outs/E85_v3")
 ggsave('DotPlot_mef2c_E85_harmony_subset.pdf', plot = DP_E85_sub, device = 'pdf', width = 18, height = 6, dpi = 300)
 
+#Create pooled cell type labels so we can easily count the number of WT/KO cells of each cell type
+Idents(mef2c_v13_E85_v3_subset) <- "harmony_cell_type_subset"
+new.cluster.ids <- c("CMs-V", "pSHF", "MixM", "PhM",
+                     "MixM", "CMs-IFT", "PhM", "CMs-OFT",
+                     "LPM", "PhM", "CMs-IFT", "aSHF",
+                     "LPM", "CMs-IFT", "PostM", "MixM",
+                     "C16")
+names(new.cluster.ids) <- levels(mef2c_v13_E85_v3_subset$harmony_cell_type_subset)
+mef2c_v13_E85_v3_subset <- RenameIdents(mef2c_v13_E85_v3_subset, new.cluster.ids)
+mef2c_v13_E85_v3_subset <- AddMetaData(mef2c_v13_E85_v3_subset, mef2c_v13_E85_v3_subset@active.ident, "harmony_cell_type_subset_pool")
+#Look at cell numbers by genotype
+table(mef2c_v13_E85_v3_subset$Genotype, mef2c_v13_E85_v3_subset$harmony_cell_type_subset_pool)
+
 
 ###----------Subset - DEG Testing ------------------------------------------
 
