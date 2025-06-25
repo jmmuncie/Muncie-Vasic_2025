@@ -473,6 +473,21 @@ DP_E775_subset <- DotPlot(mef2c_v13_E775_subset, features = features4) + Rotated
 setwd("~/Desktop/Mef2c_v13_Seurat_scTrans_working/Seurat_Outs/E775")
 ggsave('DotPlot_mef2c_E775_subset.pdf', plot = DP_E775_subset, device = 'pdf', width = 17, height = 7, dpi = 300)
 
+#Now label clusters by pooled cell types to count number of WT/KO cells of each cell type 
+Idents(mef2c_v13_E775_subset) <- "cell_type_subset"
+new.cluster.ids <- c("CrM", "SoM", "ExM", "NMPs",
+                     "ExM", "PrxM", "CrM", "SoM",
+                     "ExM", "ExM", "LPM", "SHF",
+                     "ExM", "ExM", "JCF", "SoM",
+                     "CMs/FHF", "HSCs", "SHF", "CrM", "KPs"
+)
+names(new.cluster.ids) <- levels(mef2c_v13_E775_subset$cell_type_subset)
+mef2c_v13_E775_subset <- RenameIdents(mef2c_v13_E775_subset, new.cluster.ids)
+#Add "cell_type_pooled" metadata column 
+mef2c_v13_E775_subset <- AddMetaData(mef2c_v13_E775_subset, mef2c_v13_E775_subset@active.ident, "cell_type_subset_pooled")
+#Count cells
+table(mef2c_v13_E775_subset$Genotype, mef2c_v13_E775_subset$cell_type_subset_pooled)
+
 
 ###----------Subset - DEG Testing ------------------------------------------
 
